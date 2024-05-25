@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Flower Store</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background-color: #ff6f61;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #ff6f61;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffd1c4;
+        }
+        .hero {
+            background-image: url('https://example.com/flower-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .hero-text {
+            background-color: #ff6f61;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .intro h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .intro p {
+            font-size: 1.2em;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .feature {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .feature p {
+            color: #888;
+            font-size: 1em;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        .user-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .user-buttons p {
+            background-color: #ff6f61;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .user-buttons button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .user-buttons button:hover {
+            background-color: #e65c55;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <%- include('./partials/nav') %>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Welcome to Unity Flowers</h1>
+        </div>
+        <div class="user-buttons">
+          <p>Change User ID:</p>
+          <form action="/changeUserID" method="POST">
+            <button>User ID 0</button>
+            <input type="hidden" name="userID" value="0">
+          </form>
+          <form action="/changeUserID" method="POST">
+            <button>User ID 1</button>
+            <input type="hidden" name="userID" value="1">
+          </form>
+          <form action="/changeUserID" method="POST">
+            <button>User ID 2</button>
+            <input type="hidden" name="userID" value="2">
+          </form>
+          <form action="/changeUserID" method="POST">
+            <button>User ID 3</button>
+            <input type="hidden" name="userID" value="3">
+          </form>
+        </div>
+    </section>
+    <div class="container">
+        <section class="intro">
+            <h2>Our Mission</h2>
+            <p>At Unity Flowers, we are committed to providing the freshest and most vibrant flowers for every occasion. From romantic roses to cheerful tulips, our selection is sure to brighten anyone's day.</p>
+        </section>
+        <section class="features">
+            <div class="feature">
+                <h3>Wide Variety</h3>
+                <p>Explore a wide range of flowers, from classic roses to exotic orchids.</p>
+            </div>
+            <div class="feature">
+                <h3>Freshness Guaranteed</h3>
+                <p>We ensure that every flower you purchase is as fresh and beautiful as possible.</p>
+            </div>
+            <div class="feature">
+                <h3>Fast Delivery</h3>
+                <p>Enjoy fast and reliable delivery, so your flowers arrive in perfect condition.</p>
+            </div>
+            <div class="feature">
+                <h3>Customer Support</h3>
+                <p>Our friendly customer support team is here to help with any questions or concerns.</p>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>2024 Unity Flowers Store</p>
+    </footer>
+</body>
+</html>

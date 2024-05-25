@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Flower Store</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background-color: #ff6f61;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #ff6f61;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffd1c4;
+        }
+        .hero {
+            background-image: url('https://example.com/flower-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .hero-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product h2 {
+            font-size: 1.5em;
+            margin: 15px;
+        }
+        .product p {
+            color: #888;
+            font-size: 1.2em;
+            margin: 15px;
+            flex-grow: 1;
+        }
+        .product form {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px 15px;
+        }
+        .product .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .product .quantity-control button {
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            background-color: #ff6f61;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .product .quantity-control button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+        .product .quantity-control input {
+            width: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 0 5px;
+        }
+        .product button[type="submit"] {
+            background-color: #ff6f61;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .product button[type="submit"]:hover {
+            background-color: #e65c53;
+        }
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        function updateQuantity(input, step) {
+            const value = parseInt(input.value);
+            if (!isNaN(value)) {
+                let newValue = value + step;
+                if (newValue >= 1 && newValue <= 9) {
+                    input.value = newValue;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <%- include('./partials/nav') %>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Flowers for Every Occasion</h1>
+        </div>
+    </section>
+    <div class="container">
+        <section id="shop" class="products">
+            <div class="product">
+                <!-- <img src="rose.png"> -->
+                <h2>Red Rose</h2>
+                <p>A symbol of love and passion</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Rose">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/tulip.jpg" alt="Yellow Tulip"> -->
+                <h2>Yellow Tulip</h2>
+                <p>Bright and cheerful</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Tulip">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/lily.jpg" alt="White Lily"> -->
+                <h2>White Lily</h2>
+                <p>Elegant and pure</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Lily">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/daffodil.jpg" alt="Yellow Daffodil"> -->
+                <h2>Yellow Daffodil</h2>
+                <p>Symbolizes new beginnings and rebirth</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Daffodil">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/sunflower.jpg" alt="Yellow Sunflower"> -->
+                <h2>Yellow Sunflower</h2>
+                <p>Bright and sunny</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Sunflower">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/orchid.jpg" alt="Purple Orchid"> -->
+                <h2>Purple Orchid</h2>
+                <p>Exotic and delicate</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Orchid">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/carnation.jpg" alt="Pink Carnation"> -->
+                <h2>Pink Carnation</h2>
+                <p>Long-lasting and versatile</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Carnation">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/daisy.jpg" alt="White Daisy"> -->
+                <h2>White Daisy</h2>
+                <p>Simple and charming</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Daisy">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+            <div class="product">
+                <!-- <img src="https://example.com/lavender.jpg" alt="Purple Lavender"> -->
+                <h2>Purple Lavender</h2>
+                <p>Fragrant and soothing</p>
+                <form action="/purchase" method="POST">
+                    <input type="hidden" name="flowerName" value="Lavender">
+                    <div class="quantity-control">
+                        <button type="button" onclick="updateQuantity(this.nextElementSibling, -1)">-</button>
+                        <input type="text" name="purchaseAmount" value="1" readonly>
+                        <button type="button" onclick="updateQuantity(this.previousElementSibling, 1)">+</button>
+                    </div>
+                    <button type="submit">buy</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>2024 Unity Flowers Store</p>
+    </footer>
+</body>
+</html>

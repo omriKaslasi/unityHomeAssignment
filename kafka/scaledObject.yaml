@@ -1,0 +1,30 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: kafka-controller
+  namespace: kafka
+spec:
+  scaleTargetRef:
+    kind: StatefulSet
+    name: kafka-controller
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  pollingInterval: 30
+  cooldownPeriod: 60
+  triggers:
+  - type: cpu
+    metadata:
+      type: Utilization
+      value: "90"
+  - type: cpu
+    metadata:
+      type: AverageValue
+      value: "75"
+  - type: memory
+    metadata:
+      type: Utilization
+      value: "90"
+  - type: cpu
+    metadata:
+      type: AverageValue
+      value: "75"

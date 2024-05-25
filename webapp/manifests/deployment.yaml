@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+  namespace: web-server
+spec:
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: web-server
+        image: omrikas/web-srv:1.07
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 3Gi
+          requests:
+            cpu: 200m
+            memory: 500Mi     
+        ports:
+        - containerPort: 3000

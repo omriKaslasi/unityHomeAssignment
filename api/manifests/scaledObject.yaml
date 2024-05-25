@@ -1,0 +1,40 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: api-server
+  namespace: api-server
+spec:
+  scaleTargetRef:
+    name: api-server
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  pollingInterval: 30
+  cooldownPeriod: 60
+  triggers:
+  - type: cpu
+    metadata:
+      type: Utilization
+      value: "90"
+  - type: cpu
+    metadata:
+      type: AverageValue
+      value: "75"
+  - type: memory
+    metadata:
+      type: Utilization
+      value: "90"
+  - type: cpu
+    metadata:
+      type: AverageValue
+      value: "75"
+  - type: kafka
+    metadata:
+      bootstrapServers: kafka.kafka.svc.cluster.local:9092
+      consumerGroup: consumer-group
+      topic: purchases
+      allowIdleConsumers: 'false'
+      scaleToZeroOnInvalidOffset: 'false'
+      version: 3.7.0
+      sasl: plaintext
+      tls: 'false'
+      unsafeSsl: 'false'

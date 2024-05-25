@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Flower Store - Purchase History</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background-color: #ff6f61;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #ff6f61;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffd1c4;
+        }
+        .hero {
+            background-image: url('https://example.com/flower-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .hero-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #ff6f61;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            background-color: #ff6f61;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e65c53;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Unity Flower Store - Purchase History</h1>
+    </header>
+    <%- include('./partials/nav') %>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Purchase History</h1>
+        </div>
+    </section>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Flower Name</th>
+                    <th>Amount Purchased</th>
+                </tr>
+            </thead>
+            <tbody id="purchaseHistoryTable">
+              <% 
+                const summarizedPurchases = purchaseHistory.reduce((acc, purchase) => {
+                  const found = acc.find(item => item.flowerName === purchase.flowerName);
+                  if (found) {
+                    found.purchaseAmount += purchase.purchaseAmount;
+                  } else {
+                    acc.push({ flowerName: purchase.flowerName, purchaseAmount: purchase.purchaseAmount });
+                  }
+                  return acc;
+                }, []);
+              %>
+            <tbody id="purchaseHistoryTable">
+              <% summarizedPurchases.forEach(purchase => { %>
+                <tr>
+                  <td><%= purchase.flowerName %></td>
+                  <td><%= purchase.purchaseAmount %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+            </tbody>
+        </table>
+        <button onclick="showFullHistory()">Show Full Purchase History</button>
+        <% if (purchaseHistory.length > 0) { %>
+          <table id="fullPurchaseHistoryTable" class="hidden">
+            <thead>
+              <tr>
+                  <th>Flower Name</th>
+                  <th>Amount Purchased</th>
+                  <th>Date of Purchase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% purchaseHistory.forEach(purchase => { %>
+                <tr>
+                  <td><%= purchase.flowerName %></td>
+                  <td><%= purchase.purchaseAmount %></td>
+                  <td><%= purchase.createdAt.toString().replace('T', ' ').slice(0, -5)%></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p> No purchase History Found! s</p>
+        <% } %>
+    </div>
+    <footer>
+        <p>&copy; 2024 Unity Flower Store</p>
+    </footer>
+
+    <script>
+        function showFullHistory() {
+            var fullHistoryTable = document.getElementById('fullPurchaseHistoryTable');
+            if (fullHistoryTable.classList.contains('hidden')) {
+                fullHistoryTable.classList.remove('hidden');
+            } else {
+                fullHistoryTable.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
